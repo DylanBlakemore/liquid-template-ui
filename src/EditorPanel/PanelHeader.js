@@ -1,7 +1,7 @@
 import React from 'react'
 
 import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
+import CloseIcon from '@mui/icons-material/Close'
 
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined'
 
@@ -18,7 +18,7 @@ export function PanelHeader({ title, handleDelete, icon=null }) {
   return <div style={ { ...styles.panelHeader } }>
     <div style={ styles.panelHeader.title }>{ getIcon(icon) }{ title }</div>
     <IconButton style={ styles.panelHeader.deleteButton } onClick={ handleDelete }>
-      <DeleteIcon fontSize={ 'small' }/>
+      <CloseIcon fontSize={ 'small' }/>
     </IconButton>
   </div>
 }

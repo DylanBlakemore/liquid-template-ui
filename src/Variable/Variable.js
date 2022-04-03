@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
 
-import { styles } from '../EditorPanel//styles'
+import CloseIcon from '@mui/icons-material/Close'
 
-import { deleteNode } from '../LiquidEditor/liquidState'
+import { styles } from '../EditorPanel//styles'
 
 const buttonStyle = ({ isHovering }) => {
   return {
     cursor: 'pointer',
-    padding: '0px 5px 0px 5px',
+    padding: '0px 0px 0px 5px',
     borderRadius: '4px',
-    fontWeight: isHovering ? 'bold' : 'normal'
+    fontWeight: isHovering ? 'bold' : 'normal',
+    veticalAlign: 'middle',
   }
 }
 
-export default function Variable({ value, text, idx }) {
+export default function Variable({ onDelete, text, id, ...props }) {
 
   const [hovering, setHovering] = useState(false)
 
-  const onDelete = () => deleteNode(idx)
+  const handleDelete = () => onDelete(id)
 
   const startHover = () => setHovering(true)
   const stopHover = () => setHovering(false)
@@ -28,10 +29,10 @@ export default function Variable({ value, text, idx }) {
       style={ buttonStyle({ isHovering: hovering }) }
       onMouseEnter={startHover}
       onMouseLeave={stopHover}
-      onClick={ onDelete }
+      onClick={ handleDelete }
       contentEditable={ false}
     >
-      x
+      <CloseIcon size={ 'small'} style={{ fontSize: '12' }}/>
     </span>
   </span>
 }

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Stack from '@mui/material/Stack'
-
 import EditorPanel from './EditorPanel'
 import { PanelHeader } from './PanelHeader'
 
@@ -9,12 +7,12 @@ import { deleteNode } from '../LiquidEditor/liquidState'
 
 import { styles } from './styles'
 
-export function LoopPanel({ children, title, idx }) {
+export function LoopPanel({ children, title, id }) {
 
-  const onDelete = () => deleteNode(idx)
+  const onDelete = () => deleteNode(id)
 
   return <div style={ styles.editorPanel } >
     <PanelHeader title={ `${title}` } icon={ 'loop' } handleDelete={ onDelete } />
-    <EditorPanel children={ children } idx={ idx } unstyled/>
+    <EditorPanel children={ children } id={ id } unstyled/>
   </div>
 }
