@@ -1,14 +1,18 @@
 export const parseState = (state) => {
-  const valueArray = state.map((child) => {
-    if (child.value) {
-      return child.value
-    } else if (child.text) {
-      return child.text
-    } else if (child.children) {
-      return parseState(child.children)
-    } else {
-      return null
-    }
-  })
-  return valueArray.join('')
+  if (state.type === 'paragraph') {
+    return state.children.map((child) => {
+      return parseState(child)
+    }).join('')
+  } else if (state.type === 'variable') {
+    return state.value
+  } else if (state.type === 'iteration') {
+    const header = state.value
+    const footer = '{% endfor %}'
+    const content = state.children.map((child) => {
+      return parseState(child)
+    }).join('')
+    return `\n${header}\n${content}\n${footer}`
+  } else {
+    return state.text
+  }
 } // Needs a lot of work

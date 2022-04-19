@@ -1,38 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
+import Icon from '../Icon'
 
-import { styles } from '../EditorPanel//styles'
+import './Variable.scss'
 
-const buttonStyle = ({ isHovering }) => {
-  return {
-    cursor: 'pointer',
-    padding: '0px 0px 0px 5px',
-    borderRadius: '4px',
-    fontWeight: isHovering ? 'bold' : 'normal',
-    veticalAlign: 'middle',
-  }
-}
-
-export default function Variable({ onDelete, text, id, ...props }) {
-
-  const [hovering, setHovering] = useState(false)
-
-  const handleDelete = () => onDelete(id)
-
-  const startHover = () => setHovering(true)
-  const stopHover = () => setHovering(false)
-
-  return <span style={ styles.variable }>
-    <span contentEditable={ false}>{ text }</span>
-    <span
-      style={ buttonStyle({ isHovering: hovering }) }
-      onMouseEnter={startHover}
-      onMouseLeave={stopHover}
-      onClick={ handleDelete }
-      contentEditable={ false}
-    >
-      <CloseIcon size={ 'small'} style={{ fontSize: '12' }}/>
+export default function Variable({ onDelete, label, path, dataType }) {
+  return <span className={ 'Variable' } style={{ userSelect: 'none' }} contentEditable={ false }>
+    <span style={{ verticalAlign: 'middle', paddingRight: '3px' }}><Icon type={ dataType } /></span>
+    <span style={{ color: '#55c0df' }}>| </span>
+    { label }
+    <span className={ 'Variable__Button' }>
+      <Icon
+        className={ 'Variable__Icon' }
+        type={ 'close' }
+        onClick={ () => onDelete(path) }
+      />
     </span>
   </span>
 }
