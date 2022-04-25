@@ -5,14 +5,20 @@ import { Item, Submenu } from 'react-contexify'
 import './EditorMenu.scss'
 
 const buildKey = (index, parentIndex) => parentIndex ? `${parentIndex}.${index}` : index
+const buildDisplayLabel = (label, parentLabel) => parentLabel ? `${parentLabel} > ${label}` : label
 
-const insertItem = (item, key, handleClick) => {
+const MenuItem = ({ item, menuKey, handleSelect }) => {
+  const handleClick = ({ data, event }) => {
+    event.preventDefault()
+    handleSelect(data)
+  }
+
   return <Item
-    key={ key }
-    data={ { ...item, index: key } }
+    key={ menuKey }
+    data={ { ...item, index: menuKey } }
     onClick={ handleClick }
   >
-    <Icon type={ item.data_type }/>
+    <Icon type={ item.type }/>
     { item.label }
   </Item>
 }
@@ -23,10 +29,12 @@ const insertGroup = (item, key, handleSelect, context) => {
     label={ item.label }
   >
     { 
-      item.items && Object.entries(item.items).map(([k, item]) => {
+      item.items && Object.entries(item.items).map(([k, childItem]) => {
         return <MenuEntry
-          key={ buildKey(item.index, key) }
-          { ...item }
+          key={ buildKey(childItem.index, key) }
+          { ...childItem }
+          displayLabel = { buildDisplayLabel(childItem.label, item.displayLabel) }
+          parentDisplayLabel={ item.displayLabel }
           parentIndex={ key }
           handleSelect={ handleSelect }
           context={ context }
@@ -38,37 +46,29 @@ const insertGroup = (item, key, handleSelect, context) => {
 
 const getContextualItem = (item, context, key) => {
   const itemContext = context?.find(contextEntry => contextEntry.key === key)
-  if (itemContext) {
-    return { ...item, index: itemContext.index, type: 'group', label: item.singular }
-  } else {
-    return null
-  }
+  if (itemContext) return { ...item, index: itemContext.index, type: 'group' }
 }
 
-export function MenuEntry({ index, parentIndex, handleSelect, propsFromTrigger, triggerEvent, context, ...item }) {
-  const { type } = item
+export function MenuEntry({ index, parentDisplayLabel, parentIndex, handleSelect, context, ...data }) {
+  const { type } = data
   const key = buildKey(index, parentIndex)
 
-  const handleClick = ({ data, event }) => {
-    event.preventDefault()
-    handleSelect(data)
-  }
+  const displayLabel = buildDisplayLabel(data.label, parentDisplayLabel)
+  const item = { ...data, displayLabel: displayLabel }
 
-  const menuItem = () => {
-    switch (type) {
-      case 'variable':
-        return insertItem(item, key, handleClick)
-      case 'iteration':
-        const contextualItem = getContextualItem(item, context, key)
-        if (contextualItem) {
-          return insertGroup(contextualItem, contextualItem.index, handleSelect, context)
-        } else {
-          return insertItem({ ...item, data_type: 'rotate' }, key, handleClick, context)
-        }
-      default:
-        return insertGroup(item, key, handleSelect, context)
-    }
+  switch (type) {
+    case 'text':
+      return <MenuItem item={ item } menuKey={ key } handleSelect={ handleSelect } />
+    case 'number':
+      return <MenuItem item={ item } menuKey={ key } handleSelect={ handleSelect } />
+    case 'iteration':
+      const contextualItem = getContextualItem(item, context, key)
+      if (contextualItem) {
+        return insertGroup(contextualItem, contextualItem.index, handleSelect, context)
+      } else {
+        return <MenuItem item= { { ...item, data_type: 'rotate' } } menuKey={ key } handleSelect={ handleSelect } />
+      }
+    default:
+      return insertGroup(item, key, handleSelect, context)
   }
-
-  return menuItem()
 }

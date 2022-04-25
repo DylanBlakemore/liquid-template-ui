@@ -116,30 +116,29 @@ export const mockVariables = [
   {
     type: 'iteration',
     index: 'comparison_items',
-    label: 'Stimuli',
-    singular: 'Stimulus',
+    label: 'Stimulus',
     items: [
-      { index: 'name', label: 'Name', type: 'variable', data_type: 'text' },
+      { index: 'name', label: 'Name', type: 'text' },
       {
         index: 'brand_feeling',
         type: 'group',
         label: 'Brand Feeling',
         items: [
-          { index: 'name', label: 'Name', type: 'variable', data_type: 'text' },
-          { index: 'question_text', label: 'Question text', type: 'variable', data_type: 'text' },
-          { index: 'score', label: 'Score', type: 'variable', data_type: 'number' },
-          { index: 'significance', label: 'Significance', type: 'variable', data_type: 'number' }
+          { index: 'name', label: 'Name', type: 'text' },
+          { index: 'question_text', label: 'Question text', type: 'text' },
+          { index: 'score', label: 'Score', type: 'number' },
+          { index: 'significance', label: 'Significance', type: 'number' }
         ]
       },
       {
-        index: 'puchase_likelihood',
+        index: 'purchase_likelihood',
         type: 'group',
         label: 'Purchase Likelihood',
         items: [
-          { index: 'name', label: 'Name', type: 'variable', data_type: 'text' },
-          { index: 'question_text', label: 'Question text', type: 'variable', data_type: 'text' },
-          { index: 'score', label: 'Score', type: 'variable', data_type: 'number' },
-          { index: 'significance', label: 'Significance', type: 'variable', data_type: 'number' }
+          { index: 'name', label: 'Name', type: 'text' },
+          { index: 'question_text', label: 'Question text', type: 'text' },
+          { index: 'score', label: 'Score', type: 'number' },
+          { index: 'significance', label: 'Significance', type: 'number' }
         ]
       }
     ]
@@ -154,17 +153,17 @@ export const mockVariables = [
         type: 'group',
         label: 'Brand Feeling',
         items: [
-          { index: 'name', label: 'Name', type: 'variable', data_type: 'text' },
-          { index: 'norm', label: 'Norm', type: 'variable', data_type: 'number' }
+          { index: 'name', label: 'Name', type: 'text' },
+          { index: 'norm', label: 'Norm', type: 'number' }
         ]
       },
       {
-        index: 'puchase_likelihood',
+        index: 'purchase_likelihood',
         type: 'group',
         label: 'Purchase Likelihood',
         items: [
-          { index: 'name', label: 'Name', type: 'variable', data_type: 'text' },
-          { index: 'norm', label: 'Norm', type: 'variable', data_type: 'number' }
+          { index: 'name', label: 'Name', type: 'text' },
+          { index: 'norm', label: 'Norm', type: 'number' }
         ]
       }
     ]
@@ -174,9 +173,59 @@ export const mockVariables = [
     label: 'Norm',
     index: 'norm',
     items: [
-      { index: 'date', type: 'variable', data_type: 'text', label: 'Date' },
-      { index: 'conditions', type: 'variable', data_type: 'text', label: 'Conditions' },
-      { index: 'count', type: 'variable', data_type: 'number', label: 'Count' },
+      { index: 'date', type: 'text', label: 'Date' },
+      { index: 'conditions', type: 'text', label: 'Conditions' },
+      { index: 'count', type: 'number', label: 'Count' },
     ]
   }
 ]
+
+export const dummyData = {
+  comparison_items: [
+    {
+      name: 'Pepsi new flavour 30s',
+      brand_feeling: {
+        score: 5.6,
+        question_text: 'How did it make you feel about Pepsi?',
+        name: 'Brand feeling',
+        significance: -1
+      },
+      purchase_likelihood: {
+        score: 8.2,
+        question_text: 'How likely would you be to buy the new flavour?',
+        name: 'Purchase likelihood',
+        significance: 1
+      }
+    },
+    {
+      name: 'Pepsi old flavour 30s',
+      brand_feeling: {
+        score: 8.0,
+        question_text: 'How did it make you feel about Pepsi?',
+        name: 'Brand feeling',
+        significance: 1
+      },
+      purchase_likelihood: {
+        score: 6.2,
+        question_text: 'How likely would you be to buy the new flavour?',
+        name: 'Purchase likelihood',
+        significance: 0
+      }
+    }
+  ],
+  measures: {
+    brand_feeling: {
+      norm: 7.1,
+      name: 'Brand feeling',
+    },
+    purchase_likelihood: {
+      norm: 6.3,
+      name: 'Purchase likelihood',
+    }
+  },
+  norm: {
+    date: '30 October, 2020',
+    conditions: 'Country is United States and category is Soft Drinks',
+    count: 376
+  }
+}

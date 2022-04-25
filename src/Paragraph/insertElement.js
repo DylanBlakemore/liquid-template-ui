@@ -8,11 +8,11 @@ const insertVariable = (editor, data, id) => {
   editor.insertNode({
     type: 'variable',
     value: variableWrapper(data.index),
-    label: data.label,
+    label: data.displayLabel,
     index: data.index,
     children: [{text: ' '}],
     container: data.container,
-    dataType: data.data_type,
+    dataType: data.type,
     id: id
   })
   Transforms.move(editor, { distance: 1, unit: 'character' })
@@ -25,7 +25,7 @@ const insertIteration = (editor, data, id) => {
       type: 'iteration',
       value: iterationWrapper(data.index),
       index: data.index,
-      label: `For each ${data.singular}`,
+      label: `For each ${data.label}`,
       children: [{
         id: id,
         type: 'paragraph',
@@ -47,7 +47,7 @@ const insertIteration = (editor, data, id) => {
 }
 
 export const insertElement = (editor, data, id) => {
-  if (data.type === 'variable') {
+  if (data.type === 'number' || data.type === 'text') {
     insertVariable(editor, data, id)
   } else if (data.type === 'iteration') {
     insertIteration(editor, data, id)
