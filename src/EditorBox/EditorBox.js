@@ -26,7 +26,18 @@ const withVariables = editor => {
   return editor
 }
 
+const withConditions = editor => {
+  const isInline = editor.isInline
+
+  editor.isInline = element => {
+    return element.type === 'condition' ? true : isInline(element)
+  }
+
+  return editor
+}
+
 const createEditorWithPlugins = pipe(
+  withConditions,
   withVariables,
   withHistory,
   withReact

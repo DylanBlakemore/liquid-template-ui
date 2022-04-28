@@ -5,14 +5,15 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { BiData } from 'react-icons/bi'
 import { BsFonts } from 'react-icons/bs'
 import { TiSortNumerically } from 'react-icons/ti'
+import { BiQuestionMark } from 'react-icons/bi'
 
-const getIcon = (icon, props) => {
-  switch(icon) {
+export default function Icon({ type, ...props }) {
+  switch(type) {
     case 'close':
-      return <BsX {...props} />
+      return <BsX {...props}/>
     case 'context-menu':
-      return <BsThreeDotsVertical {...props} />
-    case 'rotate':
+      return <BsThreeDotsVertical {...props}/>
+    case 'iteration':
       return <BsArrowRepeat {...props}/>
     case 'variable':
       return <BiData {...props}/>
@@ -20,11 +21,9 @@ const getIcon = (icon, props) => {
       return <BsFonts {...props}/>
     case 'number':
       return <TiSortNumerically {...props}/>
+    case 'question':
+      return <BiQuestionMark {...props}/>
     default:
       return <></>
   }
-}
-
-export default function Icon({ type, ...props }) {
-  return getIcon(type, props)
 }

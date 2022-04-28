@@ -4,6 +4,17 @@ import { iterationWrapper, contextWrapper, variableWrapper } from '../LiquidUtil
 
 import { Transforms } from 'slate'
 
+const insertCondition = (editor, data, id) => {
+  editor.insertNode({
+    type: 'condition',
+    value: '',
+    label: 'Click to edit...',
+    children: [{text: ''}],
+    id: id
+  })
+  Transforms.move(editor, { distance: 1, unit: 'character' })
+}
+
 const insertVariable = (editor, data, id) => {
   editor.insertNode({
     type: 'variable',
@@ -11,7 +22,6 @@ const insertVariable = (editor, data, id) => {
     label: data.displayLabel,
     index: data.index,
     children: [{text: ' '}],
-    container: data.container,
     dataType: data.type,
     id: id
   })
@@ -51,5 +61,7 @@ export const insertElement = (editor, data, id) => {
     insertVariable(editor, data, id)
   } else if (data.type === 'iteration') {
     insertIteration(editor, data, id)
+  } else if (data.type === 'condition') {
+    insertCondition(editor, data, id)
   }
 }

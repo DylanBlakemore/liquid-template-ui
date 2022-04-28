@@ -1,4 +1,4 @@
-.Variable {
+.inline-element {
   background-color: #f0fcff;
   color: #3387a0;
   padding: 3px;
@@ -15,14 +15,27 @@
   vertical-align: middle;
 }
 
-.Variable__Button {
-  margin: 0 0 0 5px;
-  vertical-align: middle;
+.inline-element-content {
+
 }
 
-.Variable__Icon {
-  border-radius: 3px;
+.inline-element-title {
+  border-left: solid 1px #55c0df;
+  border-right: solid 1px #55c0df;
+  padding: 0px 5px 0px 5px;
+}
+
+.inline-element-close-button {
+  vertical-align: middle;
+  color: #3387a0;
+  margin-bottom: 2px;
   &:hover {
     box-shadow: 0 0 1px 0 #3387a0
   }
+}
+
+.inline-element-icon {
+  vertical-align: middle;
+  padding-right: 3px;
+  color: #3387a0
 }

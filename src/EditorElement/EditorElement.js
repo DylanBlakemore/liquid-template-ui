@@ -3,6 +3,7 @@ import React from 'react'
 import Variable from '../Variable'
 import Loop from '../Loop'
 import Paragraph from '../Paragraph'
+import Condition from '../Condition'
 
 import { Transforms } from 'slate'
 import { useSlateStatic, ReactEditor } from 'slate-react'
@@ -34,6 +35,14 @@ export default function EditorElement({ element, children }) {
         >
           { children }
         </Loop>
+      case 'condition':
+        return <Condition
+          { ...element }
+          path={ path }
+          onDelete={ deleteNode }
+        >
+          { children }
+        </Condition>
       default:
         return <Paragraph
           { ...element }

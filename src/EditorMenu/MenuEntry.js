@@ -23,19 +23,19 @@ const MenuItem = ({ item, menuKey, handleSelect }) => {
   </Item>
 }
 
-const insertGroup = (item, key, handleSelect, context) => {
+const SubMenu = ({ item, menuKey, handleSelect, context }) => {
   return <Submenu
-    key={ key }
+    key={ menuKey }
     label={ item.label }
   >
     { 
       item.items && Object.entries(item.items).map(([k, childItem]) => {
         return <MenuEntry
-          key={ buildKey(childItem.index, key) }
+          key={ buildKey(childItem.index, menuKey) }
           { ...childItem }
           displayLabel = { buildDisplayLabel(childItem.label, item.displayLabel) }
           parentDisplayLabel={ item.displayLabel }
-          parentIndex={ key }
+          parentIndex={ menuKey }
           handleSelect={ handleSelect }
           context={ context }
         />
@@ -64,11 +64,11 @@ export function MenuEntry({ index, parentDisplayLabel, parentIndex, handleSelect
     case 'iteration':
       const contextualItem = getContextualItem(item, context, key)
       if (contextualItem) {
-        return insertGroup(contextualItem, contextualItem.index, handleSelect, context)
+        return <SubMenu item={ contextualItem } menuKey={ contextualItem.index } handleSelect={ handleSelect } context={ context } />
       } else {
-        return <MenuItem item= { { ...item, data_type: 'rotate' } } menuKey={ key } handleSelect={ handleSelect } />
+        return <MenuItem item={ { ...item, data_type: 'iteration' } } menuKey={ key } handleSelect={ handleSelect } />
       }
     default:
-      return insertGroup(item, key, handleSelect, context)
+      return <SubMenu item={ item } menuKey={ key } handleSelect={ handleSelect } context={ context } />
   }
 }
