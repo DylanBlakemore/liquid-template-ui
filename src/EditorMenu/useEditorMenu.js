@@ -1,7 +1,7 @@
 import { useContextMenu } from 'react-contexify'
 
-export const useEditorMenu = (element) => {
-  const { show } = useContextMenu({ id: `${element.id}-context-menu`, })
+export const useEditorMenu = ({ id }) => {
+  const { show } = useContextMenu({ id: `${id}-context-menu` })
 
   const handleContextMenu = (event) => {
     event.preventDefault()

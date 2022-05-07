@@ -9,7 +9,7 @@ import { useVariables } from '../state'
 
 export default function Paragraph ({ children, ...element }) {
   const handleContextMenu = useEditorMenu(element)
-  const variables = useVariables(element)
+  const variables = useVariables(element.context)
   const editor = useSlateStatic()
 
   const handleInsertElement = (data) => {

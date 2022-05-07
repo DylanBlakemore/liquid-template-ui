@@ -63,7 +63,7 @@ export default function EditorBox({ data, onEditorChange }) {
       onChange={ handleChange }
     >
       <Editable
-        renderElement={ (props) => <EditorElement {...props} editor={ editor } /> }
+        renderElement={ (props) => <EditorElement { ...props } editor={ editor } /> }
         style={{ backgroundColor: '#ffffff', padding: '10px' }}
       />
     </Slate>

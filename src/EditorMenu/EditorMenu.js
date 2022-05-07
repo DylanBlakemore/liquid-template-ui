@@ -10,7 +10,7 @@ import './EditorMenu.scss'
 export default function EditorMenu({ id, items, handleSelect, context }) {
   const [isConditionModalOpen, setConditionModalOpen] = useState(false)
 
-  const handleClick = ({ data, event }) => {
+  const handleAddCondition = ({ data, event }) => {
     setConditionModalOpen(true)
     // event.preventDefault()
     // handleSelect({ type: 'condition' })
@@ -31,7 +31,7 @@ export default function EditorMenu({ id, items, handleSelect, context }) {
         }
       </Submenu>
       <Separator />
-      <Item key={ `${id}-condition` } onClick={ handleClick }>Condition</Item>
+      <Item key={ `${id}-condition` } onClick={ handleAddCondition }>Condition</Item>
       <Item key={ `${id}-condition-block` }>Condition block</Item>
     </Menu>
     <ConditionModal

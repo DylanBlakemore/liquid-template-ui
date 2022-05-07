@@ -1,15 +1,19 @@
 import React from 'react'
 
-import Modal from 'react-modal'
+import ReactModal from 'react-modal'
+import ContainerHeader from '../ContainerHeader'
+import { ConditionBuilder } from './ConditionBuilder'
 
-export default function ConditionModal({ isOpen, onClose }) {
-  return <Modal
+import './ConditionModal.scss'
+
+export default function ConditionModal({ isOpen, onClose, onConfirm }) {
+  return <ReactModal
     isOpen={isOpen}
-    // onAfterOpen={afterOpenModal}
     onRequestClose={onClose}
-    // style={customStyles}
-    contentLabel={ 'Create condition' }
+    appElement={ document.getElementById('root') }
+    className={ 'condition-modal' }
+    centered={ true }
   >
-    <button>Click me!</button>
-  </Modal>
+    <ContainerHeader label={ 'Create condition' } icon={ 'question' }/>
+  </ReactModal>
 }

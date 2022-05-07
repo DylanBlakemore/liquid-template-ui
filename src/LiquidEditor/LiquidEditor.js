@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import EditorBox from '../EditorBox'
 
 import { parseState } from './parser'
-import { deepIndex } from './deepIndex'
 
 import { mockVariables, dummyData } from './mock'
 import { setVariables } from '../state'
@@ -20,7 +19,7 @@ export default function LiquidEditor() {
 
   const [dummyResult, setDummyResult] = useState('')
 
-  useEffect(() => setVariables(deepIndex(mockVariables)), [])
+  useEffect(() => setVariables(mockVariables), [])
 
   const engine = new Liquid()
   const template = data.map(entry => parseState(entry)).join('')
@@ -32,8 +31,8 @@ export default function LiquidEditor() {
       data={ data }
       onEditorChange={ setData }
     />
-    <textarea value={ template } readOnly={ true }/>
-    <textarea value={ dummyResult } readOnly={ true }/>
+    <div><textarea value={ template } readOnly={ true }/></div>
+    <div><textarea value={ dummyResult } readOnly={ true }/></div>
     <div dangerouslySetInnerHTML={{ __html: dummyResult }} />
 
   </div>

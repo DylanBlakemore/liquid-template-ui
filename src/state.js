@@ -2,33 +2,39 @@ import { createStore } from '@halka/state'
 import produce from 'immer'
 import { Path } from 'slate'
 
+import { deepIndex } from './LiquidUtils/deepIndex'
+
 const baseState = {
   selectedElement: null,
-  globalVariables: {},
-  elementVariables: {}
+  variables: []
 }
 
 export const useLiquidEditor = createStore(baseState)
 
 const setState = (fn) => useLiquidEditor.set(produce(fn))
 
-export const setVariables = (variables, element = null) => setState((state) => {
-  if (element) {
-    state.elementVariables[element.id] = { [variables.index]: variables }
-  } else {
-    state.globalVariables = variables
-  }
+export const setVariables = (variables) => setState((state) => {
+  state.variables = variables
 })
 
-export const useVariables = (element = null) => {
-  const globalVariables = useLiquidEditor((state) => state.globalVariables)
-  const elementVariables = useLiquidEditor((state) => state.elementVariables[element?.id])
-  
-  if (!elementVariables) {
-    return globalVariables
-  } else {
-    return { ...globalVariables, ...elementVariables }
-  }
+
+const contextualize = (variables) => {
+
+}
+
+const formatSingle = (variable, parent) => {
+  debugger
+  return variable
+}
+
+const format = (variables, parent = null) => {
+  variables.map((variable) => formatSingle(variable, parent))
+  return variables
+}
+
+export const useVariables = (context = null) => {
+  const variables = useLiquidEditor((state) => state.variables)
+  return format(variables)
 }
 
 export const selectElement = (path) => {
