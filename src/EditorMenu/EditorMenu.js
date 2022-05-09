@@ -20,9 +20,9 @@ export default function EditorMenu({ id, items, handleSelect, context }) {
     <Menu id={ id } className={ 'menu' }>
       <Submenu key={ `${id}-variables` } label={ 'Variables' }>
         {
-          items && Object.entries(items).map(([_, item]) => {
+          items && items.map((item) => {
             return <MenuEntry
-              { ...item }
+              item={ item }
               key={ item.index }
               handleSelect={ handleSelect }
               context={ context }

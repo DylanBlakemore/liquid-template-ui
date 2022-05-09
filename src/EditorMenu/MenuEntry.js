@@ -4,18 +4,15 @@ import Icon from '../Icon'
 import { Item, Submenu } from 'react-contexify'
 import './EditorMenu.scss'
 
-const buildKey = (index, parentIndex) => parentIndex ? `${parentIndex}.${index}` : index
-const buildDisplayLabel = (label, parentLabel) => parentLabel ? `${parentLabel} > ${label}` : label
-
-const MenuItem = ({ item, menuKey, handleSelect }) => {
+const MenuItem = ({ item, handleSelect, context }) => {
   const handleClick = ({ data, event }) => {
     event.preventDefault()
     handleSelect(data)
   }
 
   return <Item
-    key={ menuKey }
-    data={ { ...item, index: menuKey } }
+    key={ item.index }
+    data={ { ...item, context: context } }
     onClick={ handleClick }
   >
     <Icon type={ item.type }/>
@@ -23,19 +20,16 @@ const MenuItem = ({ item, menuKey, handleSelect }) => {
   </Item>
 }
 
-const SubMenu = ({ item, menuKey, handleSelect, context }) => {
+const SubMenu = ({ item, handleSelect, context }) => {
   return <Submenu
-    key={ menuKey }
+    key={ item.index }
     label={ item.label }
   >
     { 
-      item.items && Object.entries(item.items).map(([k, childItem]) => {
+      item.items && item.items.map((childItem) => {
         return <MenuEntry
-          key={ buildKey(childItem.index, menuKey) }
-          { ...childItem }
-          displayLabel = { buildDisplayLabel(childItem.label, item.displayLabel) }
-          parentDisplayLabel={ item.displayLabel }
-          parentIndex={ menuKey }
+          key={ childItem.index }
+          item={ childItem }
           handleSelect={ handleSelect }
           context={ context }
         />
@@ -44,31 +38,15 @@ const SubMenu = ({ item, menuKey, handleSelect, context }) => {
   </Submenu>
 }
 
-const getContextualItem = (item, context, key) => {
-  const itemContext = context?.find(contextEntry => contextEntry.key === key)
-  if (itemContext) return { ...item, index: itemContext.index, type: 'group' }
-}
-
-export function MenuEntry({ index, parentDisplayLabel, parentIndex, handleSelect, context, ...data }) {
-  const { type } = data
-  const key = buildKey(index, parentIndex)
-
-  const displayLabel = buildDisplayLabel(data.label, parentDisplayLabel)
-  const item = { ...data, displayLabel: displayLabel }
-
-  switch (type) {
+export function MenuEntry({ handleSelect, context, item }) {
+  switch (item.type) {
     case 'text':
-      return <MenuItem item={ item } menuKey={ key } handleSelect={ handleSelect } />
+      return <MenuItem item={ item } handleSelect={ handleSelect } context={ context }/>
     case 'number':
-      return <MenuItem item={ item } menuKey={ key } handleSelect={ handleSelect } />
+      return <MenuItem item={ item } handleSelect={ handleSelect } context={ context }/>
     case 'iteration':
-      const contextualItem = getContextualItem(item, context, key)
-      if (contextualItem) {
-        return <SubMenu item={ contextualItem } menuKey={ contextualItem.index } handleSelect={ handleSelect } context={ context } />
-      } else {
-        return <MenuItem item={ { ...item, data_type: 'iteration' } } menuKey={ key } handleSelect={ handleSelect } />
-      }
+      return <MenuItem item={ item } handleSelect={ handleSelect } context={ context }/>
     default:
-      return <SubMenu item={ item } menuKey={ key } handleSelect={ handleSelect } context={ context } />
+      return <SubMenu item={ item } handleSelect={ handleSelect } context={ context } />
   }
 }
