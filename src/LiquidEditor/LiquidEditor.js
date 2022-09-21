@@ -31,8 +31,8 @@ export default function LiquidEditor() {
       data={ data }
       onEditorChange={ setData }
     />
-    <div><textarea value={ template } readOnly={ true }/></div>
-    <div><textarea value={ dummyResult } readOnly={ true }/></div>
+    <div style={ {padding: '5px'} }><textarea value={ template } readOnly={ true } style={ { resize: 'both', width: '100%', height: '100px' } }/></div>
+    <div style={ {padding: '5px'} }><textarea value={ dummyResult } readOnly={ true } style={ { resize: 'both', width: '100%', height: '100px' } }/></div>
     <div dangerouslySetInnerHTML={{ __html: dummyResult }} />
 
   </div>

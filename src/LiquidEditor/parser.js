@@ -12,6 +12,13 @@ export const parseState = (state) => {
       return parseState(child)
     }).join('')
     return `\n${header}\n${content}\n${footer}`
+  } else if (state.type === 'condition') {
+    const header = state.value
+    const footer = '{% endif %}'
+    const content = state.children.map((child) => {
+      return parseState(child)
+    }).join('')
+    return `\n${header}\n${content}\n${footer}`
   } else {
     return state.text
   }

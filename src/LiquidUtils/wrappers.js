@@ -13,3 +13,8 @@ export const variableWrapper = (index) => {
 export const contextWrapper = (index) => {
   return { key: index, index: instanceWrapper(index) }
 }
+
+export const conditionWrapper = (logic) => {
+  const condition = logic.replace('&&', 'and').replace('||', 'or').replace('(', '').replace(')', '')
+  return `{% if ${condition} %}`
+}

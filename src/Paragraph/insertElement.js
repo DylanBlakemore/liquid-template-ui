@@ -1,14 +1,14 @@
 import { nanoid } from 'nanoid'
 
-import { iterationWrapper, contextWrapper, variableWrapper } from '../LiquidUtils/wrappers'
+import { iterationWrapper, contextWrapper, variableWrapper, conditionWrapper } from '../LiquidUtils/wrappers'
 
 import { Transforms } from 'slate'
 
 const insertCondition = (editor, data, id) => {
   editor.insertNode({
     type: 'condition',
-    value: '',
-    label: 'Click to edit...',
+    value: conditionWrapper(data.query),
+    label: data.string,
     children: [{text: ''}],
     id: id
   })

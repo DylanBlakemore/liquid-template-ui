@@ -12,8 +12,18 @@ export default function EditorMenu({ id, items, handleSelect, context }) {
 
   const handleAddCondition = ({ data, event }) => {
     setConditionModalOpen(true)
-    // event.preventDefault()
-    // handleSelect({ type: 'condition' })
+    event.preventDefault()
+  }
+
+  const handleSaveCondition = ({ data, event }) => {
+    setConditionModalOpen(false)
+    event.preventDefault()
+    handleSelect({
+      type: 'condition',
+      string: data.string,
+      logic: data.logic?.logic,
+      query: data.query
+    })
   }
 
   return <>
@@ -37,6 +47,8 @@ export default function EditorMenu({ id, items, handleSelect, context }) {
     <ConditionModal
       isOpen={ isConditionModalOpen }
       onClose={ () => setConditionModalOpen(false) }
+      onConfirm={ handleSaveCondition }
+      context={ context }
     />
   </>
 }

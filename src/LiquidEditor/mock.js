@@ -144,28 +144,21 @@ export const mockVariables = [
     ]
   },
   {
+    index: 'brand_feeling',
     type: 'group',
-    label: 'Measures',
-    index: 'measures',
+    label: 'Brand Feeling',
     items: [
-      {
-        index: 'brand_feeling',
-        type: 'group',
-        label: 'Brand Feeling',
-        items: [
-          { index: 'name', label: 'Name', type: 'text' },
-          { index: 'norm', label: 'Norm', type: 'number' }
-        ]
-      },
-      {
-        index: 'purchase_likelihood',
-        type: 'group',
-        label: 'Purchase Likelihood',
-        items: [
-          { index: 'name', label: 'Name', type: 'text' },
-          { index: 'norm', label: 'Norm', type: 'number' }
-        ]
-      }
+      { index: 'name', label: 'Name', type: 'text' },
+      { index: 'norm', label: 'Norm', type: 'number' }
+    ]
+  },
+  {
+    index: 'purchase_likelihood',
+    type: 'group',
+    label: 'Purchase Likelihood',
+    items: [
+      { index: 'name', label: 'Name', type: 'text' },
+      { index: 'norm', label: 'Norm', type: 'number' }
     ]
   },
   {
@@ -213,15 +206,13 @@ export const dummyData = {
       }
     }
   ],
-  measures: {
-    brand_feeling: {
-      norm: 7.1,
-      name: 'Brand feeling',
-    },
-    purchase_likelihood: {
-      norm: 6.3,
-      name: 'Purchase likelihood',
-    }
+  brand_feeling: {
+    norm: 7.1,
+    name: 'Brand feeling',
+  },
+  purchase_likelihood: {
+    norm: 6.3,
+    name: 'Purchase likelihood',
   },
   norm: {
     date: '30 October, 2020',
