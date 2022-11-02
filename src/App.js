@@ -1,7 +1,7 @@
-import LiquidEditor from './LiquidEditor'
+import LiquidView from './LiquidView'
 
 function App() {
-  return <LiquidEditor />
+  return <LiquidView context={ {} }/>
 }
 
 export default App

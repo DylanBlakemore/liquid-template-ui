@@ -1,20 +1,65 @@
-$green-palette: (
-  "text": #1e8c45,
-  "border": #77dd66,
-  "background": #e4f5e1,
-  "shadow": #1e8c45
-);
+.editor {
+  border-radius: 5px;
+  border: solid 2px #77dd66;
+  background-color: #ffffff;
+  margin: 10px;
 
-$blue-palette: (
-  "text": #3387a0,
-  "border": #55c0df,
-  "background": #f0fcff,
-  "shadow": #3387a0
-);
+  .editable {
+    background-color: #ffffff;
+    padding: 0px 10px
+  }
+}
 
-$orange-palette: (
-  "text": #3387a0,
-  "border": #55c0df,
-  "background": #f0fcff,
-  "shadow": #3387a0
-)
+.context-menu {
+  position: absolute;
+  min-width: 220px;
+  max-width: 440px;
+  max-height: 10em;
+  overflow-y: auto;
+
+  background: white;
+  margin-top: 0.75em;
+  padding: 0.25em 0;
+  border-radius: 4px;
+  box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0);
+  transition: transform 0.15s cubic-bezier(.3,1.2,.2,1);
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: min-content;
+  text-align: left;
+
+
+  &.context-menu-visible {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+  }
+
+  .list {
+    width: 100%;
+  }
+
+  .button {
+    padding: 7px 10px 3px 10px;
+    transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em;
+    text-align: left;
+    display: block;
+    width: 100%;
+  }
+
+  // .visible {
+  //   visibility: visible;
+  //   opacity: 1;
+  //   transform: scale(1);
+  //   z-index: 2;
+  // }
+}
